@@ -1,0 +1,32 @@
+{
+  "name": "state-of-mind",
+  "version": "1.0.0",
+  "description": "A web app to check in with how you are feeling",
+  "main": "index.ts",
+  "scripts": {
+    "start": "nodemon dist/index.js",
+    "build": "tsc --watch --preserveWatchOutput",
+    "dev": "npm run build & npm run start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cjmontgom/state-of-mind.git"
+  },
+  "author": "Chloe Montgomery",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cjmontgom/state-of-mind/issues"
+  },
+  "homepage": "https://github.com/cjmontgom/state-of-mind#readme",
+  "devDependencies": {
+    "@types/express": "^4.17.6",
+    "nodemon": "^2.0.3",
+    "prettier": "^2.0.5",
+    "ts-node": "^8.9.1",
+    "typescript": "^3.8.3"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "tslib": "^1.11.1"
+  }
+}
