@@ -22,8 +22,8 @@ export class Server implements IServer {
   }
 
   private loadRoutes(): void {
-    this.express.use('/', (req: Request, res: Response) => {
-      res.send('Hello from the other siiiiide')
+    this.express.use('/api', (req: Request, res: Response) => {
+      res.json({message: 'Hello from the other siiiiide'});
     });
   }
 }
