@@ -24,6 +24,18 @@ npm install (or yarn install)
 
 # Start the development server
 npm run dev
+
+# Go to the client directory
+cd ../client
+
+# Start in dev mode
+npm run dev
+
+# Run tests
+npm test
+
+# Bundle for production
+npm build
 ```
 
 
