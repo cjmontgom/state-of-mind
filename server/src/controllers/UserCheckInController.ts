@@ -21,10 +21,11 @@ export class UserCheckInController implements CrudController{
     }
 
     public async create(req: Partial<Request>): Promise<Partial<Response>>  {
-        const userCheckIn = req.query!.body;
         let response = {};
 
         try {
+            const userCheckIn = req.query!.body;
+
             if (userCheckIn && typeof userCheckIn === "string") {
                 const parsedUserCheckIn: UserCheckIn = JSON.parse(userCheckIn);
 
