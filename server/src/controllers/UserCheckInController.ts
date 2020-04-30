@@ -3,8 +3,8 @@ import {ResponseFromStore, Store, UserCheckIn} from "../store/InMemoryStore";
 
 interface CrudController {
     store: Store;
-    create(req: Request, res: Response): ResponseFromStore;
-    read(req: Request, res: Response): ResponseFromStore;
+    create(req: Request): Promise<Partial<Response>>;
+    read(req: Request): Promise<Partial<Response>>;
 }
 
 export class UserCheckInController implements CrudController{
@@ -14,17 +14,20 @@ export class UserCheckInController implements CrudController{
         this.store = store
     }
 
-    public create(req: Partial<Request>): ResponseFromStore {
+    public async create(req: Partial<Request>): Promise<Partial<Response>> {
         const userCheckIn: UserCheckIn = {
             ...req.body
         };
-        this.store.create(userCheckIn);
-        return {
-            responseText: "Successfully stored check in."
-        }
+        return await this.store.create(userCheckIn)
+        .then((res: ResponseFromStore) => {
+            return {
+                statusCode: 200,
+                statusMessage: res.responseText
+            };
+        })
     }
 
-    public read(req: Request): ResponseFromStore {
+    public read(req: Request): Promise<Partial<Response>> {
         throw new Error("Method not implemented.");
     }
 }

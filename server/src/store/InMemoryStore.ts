@@ -33,7 +33,8 @@ export class InMemoryStore implements Store {
     }
 
     create = async (userCheckIn: UserCheckIn): Promise<ResponseFromStore> => {
-        this.userCheckIns.push(userCheckIn) ;
+        console.log(userCheckIn)
+        this.userCheckIns.push(userCheckIn);
         return {
             responseText: "Successfully stored check in."
         };
