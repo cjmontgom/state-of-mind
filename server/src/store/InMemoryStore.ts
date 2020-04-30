@@ -1,6 +1,6 @@
 type Mood = 1 | 2 | 3 | 4 | 5 | 6 | 7
 
-enum Feeling {
+export enum Feeling {
     Stressed = "STRESSED",
     Depressed = "DEPRESSED",
     Optimistic = "OPTIMISTIC",
@@ -9,24 +9,24 @@ enum Feeling {
     Content = "CONTENT"
 }
 
-type UserCheckIn = {
+export type UserCheckIn = {
     mood: Mood;
     feeling: Feeling;
     comment?: String;
 }
 
-type ResponseFromStore = {
+export type ResponseFromStore = {
     responseText: string;
     allUserCheckIns?: UserCheckIn[];
     errorMessage?: string;
 }
 
-interface IInMemoryStore {
+export interface Store {
     create(userCheckIn: UserCheckIn): Promise<ResponseFromStore>
     read(): Promise<ResponseFromStore>
 }
 
-export class InMemoryStore implements IInMemoryStore {
+export class InMemoryStore implements Store {
 
     constructor(private userCheckIns: UserCheckIn[] = []) {
         this.userCheckIns = userCheckIns;
