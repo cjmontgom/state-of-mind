@@ -40,15 +40,7 @@ npm build
 
 
 ####To-do
- - make a front end and hook it up to the server
- - TDD a controller with empty get and post endpoints
- - TDD an in-memory store for user input (post)
- - TDD a front end for user input (post)
- - TDD in-memory store for user input (get)
- - TDD a front end for displaying data user (get)
- - Add user id functionality to api and front end
- - Hook up an SQL db to replace in memory store
- 
  In future- 
- - model out the user?
+ - model out the user and have more properties like email and name
+ - make it production ready by pointing the server to bundled front end when not in dev mode
 

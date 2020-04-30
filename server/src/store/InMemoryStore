@@ -1,0 +1,52 @@
+type Mood = 1 | 2 | 3 | 4 | 5 | 6 | 7
+
+enum Feeling {
+    Stressed = "STRESSED",
+    Depressed = "DEPRESSED",
+    Optimistic = "OPTIMISTIC",
+    Bored = "BORED",
+    Happy = "HAPPY",
+    Content = "CONTENT"
+}
+
+type UserCheckIn = {
+    mood: Mood;
+    feeling: Feeling;
+    comment?: String;
+}
+
+type ResponseFromStore = {
+    responseText: string;
+    allUserCheckIns?: UserCheckIn[];
+    errorMessage?: string;
+}
+
+interface IInMemoryStore {
+    create(userCheckIn: UserCheckIn): Promise<ResponseFromStore>
+    read(): Promise<ResponseFromStore>
+}
+
+export class InMemoryStore implements IInMemoryStore {
+
+    constructor(private userCheckIns: UserCheckIn[] = []) {
+        this.userCheckIns = userCheckIns;
+    }
+
+    create = (userCheckIn: UserCheckIn): Promise<ResponseFromStore> => {
+        this.userCheckIns.push(userCheckIn) ;
+        return new Promise<ResponseFromStore>(() => {
+            return {
+                responseText: "Successfully stored check in."
+            };
+        });
+    };
+
+    read = (): Promise<ResponseFromStore> => {
+        return new Promise<ResponseFromStore>(() => {
+            return {
+                responseText: 'Successfully fetched check ins.',
+                allUserCheckIns: this.userCheckIns
+            };
+        });
+    };
+}
