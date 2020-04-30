@@ -1,10 +1,8 @@
 import { UserCheckInController } from './UserCheckInController';
 import { Request, Response } from 'express';
 import {Feeling, InMemoryStore, ResponseFromStore, UserCheckIn} from "../store/InMemoryStore";
-
 import { expect } from 'chai';
 import 'mocha';
-import before = Mocha.before;
 
 // mock response for get
 // Response = {
@@ -26,7 +24,7 @@ describe('UserCheckInController', () => {
     it('should return a success response if the user check in data is as expected', async () => {
         const mockUserCheckIn: UserCheckIn = {
             mood: 5,
-            feeling: Feeling.Content,
+            feeling: [Feeling.Content],
             comment: "Feeling pretty good"
         };
         const mockRequest = mockRequestBuilder(mockUserCheckIn);

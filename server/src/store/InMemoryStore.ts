@@ -11,7 +11,7 @@ export enum Feeling {
 
 export type UserCheckIn = {
     mood: Mood;
-    feeling: Feeling;
+    feeling: Feeling[];
     comment?: String;
 }
 
@@ -33,7 +33,6 @@ export class InMemoryStore implements Store {
     }
 
     create = async (userCheckIn: UserCheckIn): Promise<ResponseFromStore> => {
-        console.log("User check in from in memory store " + JSON.stringify(userCheckIn));
         this.userCheckIns.push(userCheckIn);
         return {
             responseText: "Successfully stored check in."

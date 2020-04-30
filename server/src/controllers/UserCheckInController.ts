@@ -15,7 +15,9 @@ export class UserCheckInController implements CrudController{
     }
 
     private static userCheckInTypeGuard(toBeDetermined: UserCheckIn): toBeDetermined is UserCheckIn {
-        return Object.values(Feeling).includes(toBeDetermined.feeling)
+        return Object.values(Feeling).includes(toBeDetermined.feeling[0])
+            //   make it check all feelings
+            //   return toBeDetermined.feeling.every( (val) => Object.values(Feeling).includes(val))
         ? toBeDetermined.mood > 0 && toBeDetermined.mood < 8
         : false
     }

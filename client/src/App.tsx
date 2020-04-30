@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import Main from "./components/main";
 
 function App() {
 
@@ -27,6 +28,7 @@ function App() {
                 </p>
                 <button onClick={talkToApi}>Talk to API</button>
                 <div>{result.response}</div>
+                <Main/>
             </header>
          </div>
     );
