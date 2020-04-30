@@ -32,21 +32,17 @@ export class InMemoryStore implements IInMemoryStore {
         this.userCheckIns = userCheckIns;
     }
 
-    create = (userCheckIn: UserCheckIn): Promise<ResponseFromStore> => {
+    create = async (userCheckIn: UserCheckIn): Promise<ResponseFromStore> => {
         this.userCheckIns.push(userCheckIn) ;
-        return new Promise<ResponseFromStore>(() => {
-            return {
-                responseText: "Successfully stored check in."
-            };
-        });
+        return {
+            responseText: "Successfully stored check in."
+        };
     };
 
-    read = (): Promise<ResponseFromStore> => {
-        return new Promise<ResponseFromStore>(() => {
-            return {
-                responseText: 'Successfully fetched check ins.',
-                allUserCheckIns: this.userCheckIns
-            };
-        });
+    read = async (): Promise<ResponseFromStore> => {
+        return {
+            responseText: 'Successfully fetched check ins.',
+            allUserCheckIns: this.userCheckIns
+        };
     };
 }
