@@ -1,5 +1,6 @@
 import express, {Express, Request, Response} from "express";
 import * as bodyParser from 'body-parser';
+import UserCheckInRouter from "./routes/UserCheckInRouter";
 
 export interface IServer {
   express: Express,
@@ -25,6 +26,7 @@ export class Server implements IServer {
     this.express.use('/api', (req: Request, res: Response) => {
       res.json({message: 'Hello from the other siiiiide'});
     });
+    this.express.use('/checkIn', UserCheckInRouter);
   }
 }
 

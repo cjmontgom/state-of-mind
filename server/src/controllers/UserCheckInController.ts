@@ -1,10 +1,10 @@
-import { Request, Response } from 'express';
+import {Response} from 'express';
 import {Feeling, ResponseFromStore, Store, UserCheckIn} from "../store/InMemoryStore";
 
-interface CrudController {
+export interface CrudController {
     store: Store;
-    create(req: Request): Promise<Partial<Response>>;
-    read(req: Request): Promise<Partial<Response>>;
+    create(req: any): Promise<Partial<Response>>;
+    read(req: any): Promise<Partial<Response>>;
 }
 
 export class UserCheckInController implements CrudController{
@@ -14,31 +14,30 @@ export class UserCheckInController implements CrudController{
         this.store = store
     }
 
-    private static userCheckInTypeGuard(toBeDetermined: UserCheckIn): toBeDetermined is UserCheckIn {
+    private static userCheckInTypeGuard(toBeDetermined: any): toBeDetermined is UserCheckIn {
+        console.log('in typeguard ' + JSON.stringify(toBeDetermined))
         return Object.values(Feeling).includes(toBeDetermined.feeling[0])
-            //   make it check all feelings
-            //   return toBeDetermined.feeling.every( (val) => Object.values(Feeling).includes(val))
+            //   TODO check all the feelings
+            //   something like ... return toBeDetermined.feeling.every( (val) => Object.values(Feeling).includes(val))
         ? toBeDetermined.mood > 0 && toBeDetermined.mood < 8
         : false
     }
 
-    public async create(req: Partial<Request>): Promise<Partial<Response>>  {
+    public async create(req: any): Promise<Partial<Response>>  {
         let response = {};
-
+        console.log("IN HERE! the request...  " + JSON.stringify(req));
         try {
-            const userCheckIn = req.query!.body;
-
-            if (userCheckIn && typeof userCheckIn === "string") {
-                const parsedUserCheckIn: UserCheckIn = JSON.parse(userCheckIn);
-
-                if (UserCheckInController.userCheckInTypeGuard(parsedUserCheckIn))
-                await this.store.create(parsedUserCheckIn)
-                .then((res: ResponseFromStore) => {
-                    response = {
-                        statusCode: 200,
-                        statusMessage: res.responseText
-                    }
-                });
+            const userCheckIn = req;
+            console.log(typeof userCheckIn)
+            if (!!userCheckIn) {
+                if (UserCheckInController.userCheckInTypeGuard(userCheckIn))
+                    await this.store.create(userCheckIn)
+                    .then((res: ResponseFromStore) => {
+                        response = {
+                            statusCode: 200,
+                            statusMessage: res.responseText
+                        }
+                    });
                 else {
                     response = {
                         statusCode: 401,
@@ -49,13 +48,13 @@ export class UserCheckInController implements CrudController{
         } catch (e) {
             response = {
                 statusCode: 500,
-                statusMessage: "Unexpected error occurred"
+                statusMessage: "Unexpected error occurred",
             }
         }
         return response
     }
 
-    public read(req: Request): Promise<Partial<Response>> {
+    public read(req: any): Promise<Partial<Response>> {
         throw new Error("Method not implemented.");
     }
 }

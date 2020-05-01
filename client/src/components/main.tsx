@@ -22,6 +22,31 @@ export type UserCheckIn = {
 
 function Main() {
 
+    const [result, setResult] = useState({
+        response: 'Hello, not from the API',
+    });
+
+
+    const talkToApi = async() => {
+        console.log(checkIn)
+        try {
+            const res = await fetch('/checkIn', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(checkIn)
+            }).then(res => res.json());
+            setResult({
+                response: res.message
+            })
+        } catch (err) {
+            alert(err);
+        }
+    };
+
+
     const emptyCheckIn: UserCheckIn = { mood: 1, feeling: [], comment: ''};
 
     const [checkIn, setCheckIn] = useState({ ...emptyCheckIn });
@@ -37,7 +62,8 @@ function Main() {
             <div>{checkIn.mood}</div>
             <Feeling setFeeling={handleCheckInChange}/>
             <Comment setComment={handleCheckInChange}/>
-            <button onClick={() => {console.log(checkIn)}}>Submit</button>
+            <button onClick={talkToApi}>Submit</button>
+            <div>{result.response}</div>
         </div>
     );
 }
