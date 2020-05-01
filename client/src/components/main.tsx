@@ -3,8 +3,8 @@ import Mood from "./mood";
 import Feeling from "./feeling";
 import Comment from "./comment";
 import Insights from "./insights";
-import {retrieveCheckIns, save} from "../apiRequests";
-import {Card, Wrapper} from "./styles";
+import {retrieveCheckIns, save} from "../shared/apiRequests";
+import {Card, Wrapper} from "../styles/styles";
 import {
     BrowserRouter as Router,
     Switch,
@@ -12,23 +12,9 @@ import {
     Link
 } from "react-router-dom";
 import Home from "./home";
+import {UserCheckIn} from "../shared/types";
 
-type Mood = 1 | 2 | 3 | 4 | 5 | 6 | 7
 
-export enum FeelingType {
-    Stressed = "STRESSED",
-    Depressed = "DEPRESSED",
-    Optimistic = "OPTIMISTIC",
-    Bored = "BORED",
-    Happy = "HAPPY",
-    Content = "CONTENT"
-}
-
-export type UserCheckIn = {
-    mood: Mood;
-    feeling: string[];
-    comment?: String;
-}
 
 const Main = () => {
 
@@ -55,12 +41,6 @@ const Main = () => {
             <Wrapper>
                 <h1>STATE OF MIND</h1>
                 <Switch>
-                    <Route path="/">
-                        <Card>
-                            <Home/>
-                            <button><Link to="/mood">Get started</Link></button>
-                        </Card>
-                    </Route>
                     <Route path="/mood">
                         <Card>
                             <Mood setMood={handleCheckInChange}/>
@@ -85,6 +65,12 @@ const Main = () => {
                         <Card>
                             <Insights checkIns={allCheckIns}/>
                             <button><Link to="/">Back to Home</Link></button>
+                        </Card>
+                    </Route>
+                    <Route path="/">
+                        <Card>
+                            <Home/>
+                            <button><Link to="/mood">Get started</Link></button>
                         </Card>
                     </Route>
                 </Switch>

@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
-import {FeelingType} from "./main";
 import {Link} from "react-router-dom";
+import {Feelings} from "../shared/types";
 
 
 const Feeling = ({setFeeling}) => {
@@ -20,7 +20,7 @@ const Feeling = ({setFeeling}) => {
         setFeeling({feeling : checkedFeelings});
     };
 
-    const feelingsList = [...Object.values(FeelingType)];
+    const feelingsList = [...Object.values(Feelings)];
 
     const feelingInput = feelingsList.map((feeling, idx) => {
         return (
