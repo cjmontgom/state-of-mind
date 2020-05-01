@@ -4,7 +4,7 @@ import Feeling from "./feeling";
 import Comment from "./comment";
 import Insights from "./insights";
 import {retrieveCheckIns, save} from "../shared/apiRequests";
-import {Card, Wrapper} from "../styles/styles";
+import {Button, Card, Header, StyledLink, Wrapper} from "../styles/styles";
 import {
     BrowserRouter as Router,
     Switch,
@@ -22,7 +22,7 @@ const Main = () => {
 
     const [checkIn, setCheckIn] = useState({ ...emptyCheckIn });
 
-    const [allCheckIns, setAllCheckIns] = useState([{mood: '', feeling: ''}]);
+    const [allCheckIns, setAllCheckIns] = useState([{mood: '', feeling: []}]);
 
     const saveCheckIn = async () => {
         await save(checkIn)
@@ -39,13 +39,13 @@ const Main = () => {
     return (
         <Wrapper>
             <Router>
-                <h1>STATE OF MIND</h1>
+                <Header>STATE OF MIND</Header>
                 <Switch>
                     <Route path="/mood">
                         <Card>
                             <Mood setMood={handleCheckInChange}/>
                             <div>{checkIn.mood}</div>
-                            <button><Link to="/feeling">Next</Link></button>
+                            <Button><StyledLink to="/feeling">Next</StyledLink></Button>
                         </Card>
                     </Route>
                     <Route path="/feeling">
@@ -56,21 +56,21 @@ const Main = () => {
                     <Route path="/comment">
                         <Card>
                             <Comment setComment={handleCheckInChange}/>
-                            <button onClick={saveCheckIn}>
-                                <Link to="/insights">Submit</Link>
-                            </button>
+                            <Button onClick={saveCheckIn}>
+                                <StyledLink to="/insights">Submit</StyledLink>
+                            </Button>
                         </Card>
                     </Route>
                     <Route path="/insights">
                         <Card>
                             <Insights checkIns={allCheckIns}/>
-                            <button><Link to="/">Back to Home</Link></button>
+                            <Button><StyledLink to="/">Back to Home</StyledLink></Button>
                         </Card>
                     </Route>
                     <Route path="/">
                         <Card>
                             <Home/>
-                            <button><Link to="/mood">Get started</Link></button>
+                            <Button><StyledLink to="/mood">Get started</StyledLink></Button>
                         </Card>
                     </Route>
                 </Switch>

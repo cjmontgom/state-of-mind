@@ -1,12 +1,12 @@
 type Mood = 1 | 2 | 3 | 4 | 5 | 6 | 7
 
 export enum Feelings {
-    Stressed = "STRESSED",
-    Depressed = "DEPRESSED",
-    Optimistic = "OPTIMISTIC",
-    Bored = "BORED",
-    Happy = "HAPPY",
-    Content = "CONTENT"
+    Stressed = "Stressed",
+    Depressed = "Depressed",
+    Optimistic = "Optimistic",
+    Bored = "Bored",
+    Happy = "Happy",
+    Content = "Content"
 }
 
 export type UserCheckIn = {

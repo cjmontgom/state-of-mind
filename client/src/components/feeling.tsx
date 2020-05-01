@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
-import {Link} from "react-router-dom";
 import {Feelings} from "../shared/types";
+import {Button, Section, StyledLink, SubHeader} from "../styles/styles";
 
 
 const Feeling = ({setFeeling}) => {
@@ -38,13 +38,13 @@ const Feeling = ({setFeeling}) => {
     });
 
     return (
-        <div key={'feelingsComponent'}>
-            Feeling
+        <Section>
+            <SubHeader>Feeling</SubHeader>
             {feelingInput}
-            <button onClick={handleFeelingChange}>
-                <Link to="/comment">Next</Link>
-            </button>
-        </div>
+            <Button onClick={handleFeelingChange}>
+                <StyledLink to="/comment">Next</StyledLink>
+            </Button>
+        </Section>
     );
 };
 

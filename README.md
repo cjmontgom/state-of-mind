@@ -44,9 +44,10 @@ npm build
 #### To-do 
  - add SQL store
  - add dateTime, amount of check ins, and average mood to insights
+ - add user ID
+ - add theme file for styling 
  - add testing for the front end state?
  - model out the user and have more properties like email and name
  - have a sign up and sign in
- - have a landing page which explains what the app is
  - make it production ready by pointing the server to bundled front end when not in dev mode
 

@@ -1,4 +1,5 @@
 import React, {Fragment, useEffect} from 'react';
+import {Section, SubHeader, Table} from "../styles/styles";
 
 const Insights = ({checkIns}) => {
 
@@ -10,7 +11,8 @@ const Insights = ({checkIns}) => {
                 <Fragment>
                     <tr>
                         <td>{checkIn.mood}</td>
-                        <td>{checkIn.feeling}</td>
+                        <td>{checkIn.feeling.map( aFeel => `${aFeel}  `)}</td>
+                        {/*<td>{typeof checkIn.feeling}</td>*/}
                         <td>{checkIn.comment || ''}</td>
                         <td>timestamp</td>
                     </tr>
@@ -20,22 +22,24 @@ const Insights = ({checkIns}) => {
     };
 
     return (
-        <div>
-            Insights
+        <Section>
+            <SubHeader>Insights</SubHeader>
             <div>average mood</div>
             <div>number of check ins</div>
-            <table>
-                <tbody>
+            <Table>
+                <thead>
                     <tr>
                         <th>Mood</th>
-                        <th>Feeling</th>
+                        <th>Feelings</th>
                         <th>Comment</th>
                         <th>Timestamp</th>
                     </tr>
+                </thead>
+                <tbody>
                     {tableOfCheckIns(checkIns)}
                 </tbody>
-            </table>
-        </div>
+            </Table>
+        </Section>
     );
 };
 

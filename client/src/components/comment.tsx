@@ -1,4 +1,5 @@
 import React from 'react';
+import {Section, SubHeader, TextInput} from "../styles/styles";
 
 const Comment = ({setComment}) => {
 
@@ -7,10 +8,10 @@ const Comment = ({setComment}) => {
     };
 
     return (
-        <div>
-            <h2>Comments</h2>
-            <input type="textbox" onChange={handleCommentChange}/>
-        </div>
+        <Section>
+            <SubHeader>Comments</SubHeader>
+            <TextInput type="textbox" onChange={handleCommentChange}/>
+        </Section>
     );
 };
 
