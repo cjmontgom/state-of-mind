@@ -1,6 +1,6 @@
 import React, {Fragment, useEffect} from 'react';
 
-const Results = ({checkIns}) => {
+const Insights = ({checkIns}) => {
 
     useEffect(() => {}, [checkIns])
 
@@ -21,7 +21,7 @@ const Results = ({checkIns}) => {
 
     return (
         <div>
-            Results
+            Insights
             <div>average mood</div>
             <div>number of check ins</div>
             <table>
@@ -39,7 +39,7 @@ const Results = ({checkIns}) => {
     );
 };
 
-export default Results
+export default Insights
 
 
 

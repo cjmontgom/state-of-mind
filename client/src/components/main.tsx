@@ -2,9 +2,15 @@ import React, {useState} from 'react'
 import Mood from "./mood";
 import Feeling from "./feeling";
 import Comment from "./comment";
-import Results from "./results";
+import Insights from "./insights";
 import {retrieveCheckIns, save} from "../apiRequests";
 import {Card, Wrapper} from "./styles";
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link
+} from "react-router-dom";
 
 type Mood = 1 | 2 | 3 | 4 | 5 | 6 | 7
 
@@ -44,24 +50,38 @@ const Main = () => {
     };
 
     return (
-        <Wrapper>
-            <h1>STATE OF MIND</h1>
-            <Card>
-                <Mood setMood={handleCheckInChange}/>
-                <div>{checkIn.mood}</div>
-                <button>next</button>
-            </Card>
-            <Card>
-                <Feeling setFeeling={handleCheckInChange}/>
-            </Card>
-            <Card>
-                <Comment setComment={handleCheckInChange}/>
-                <button onClick={saveCheckIn}>Submit</button>
-            </Card>
-            <Card>
-                <Results checkIns={allCheckIns}/>
-            </Card>
-        </Wrapper>
+        <Router>
+            <Wrapper>
+                <h1>STATE OF MIND</h1>
+                <Switch>
+                    <Route path="/mood">
+                        <Card>
+                            <Mood setMood={handleCheckInChange}/>
+                            <div>{checkIn.mood}</div>
+                            <button><Link to="/feeling">Next</Link></button>
+                        </Card>
+                    </Route>
+                    <Route path="/feeling">
+                        <Card>
+                            <Feeling setFeeling={handleCheckInChange}/>
+                        </Card>
+                    </Route>
+                    <Route path="/comment">
+                        <Card>
+                            <Comment setComment={handleCheckInChange}/>
+                            <button onClick={saveCheckIn}>
+                                <Link to="/insights">Submit</Link>
+                            </button>
+                        </Card>
+                    </Route>
+                    <Route path="/insights">
+                        <Card>
+                            <Insights checkIns={allCheckIns}/>
+                        </Card>
+                    </Route>
+                </Switch>
+            </Wrapper>
+        </Router>
     );
 };
 

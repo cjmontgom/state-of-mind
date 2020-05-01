@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {FeelingType} from "./main";
+import {Link} from "react-router-dom";
 
 
 const Feeling = ({setFeeling}) => {
@@ -40,7 +41,9 @@ const Feeling = ({setFeeling}) => {
         <div key={'feelingsComponent'}>
             Feeling
             {feelingInput}
-            <button onClick={handleFeelingChange}>next</button>
+            <button onClick={handleFeelingChange}>
+                <Link to="/comment">Next</Link>
+            </button>
         </div>
     );
 };
