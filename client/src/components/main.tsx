@@ -64,6 +64,7 @@ function Main() {
             <Comment setComment={handleCheckInChange}/>
             <button onClick={talkToApi}>Submit</button>
             <div>{result.response}</div>
+            <Results/>
         </div>
     );
 }

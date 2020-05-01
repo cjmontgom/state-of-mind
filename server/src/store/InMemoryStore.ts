@@ -24,6 +24,7 @@ export type ResponseFromStore = {
 export interface Store {
     create(userCheckIn: UserCheckIn): Promise<ResponseFromStore>
     read(): Promise<ResponseFromStore>
+    delete(): void
 }
 
 export class InMemoryStore implements Store {
@@ -33,10 +34,8 @@ export class InMemoryStore implements Store {
     }
 
     create = async (userCheckIn: UserCheckIn): Promise<ResponseFromStore> => {
-        console.log("in the store")
         try {
             this.userCheckIns.push(userCheckIn);
-            console.log("all stored checkins.. " + JSON.stringify(this.userCheckIns))
             return {
                 responseText: "Successfully stored check in."
             };
@@ -51,4 +50,8 @@ export class InMemoryStore implements Store {
             allUserCheckIns: this.userCheckIns
         };
     };
+
+    delete = async () => {
+        this.userCheckIns = []
+    }
 }

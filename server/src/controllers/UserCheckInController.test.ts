@@ -15,6 +15,10 @@ describe('UserCheckInController', () => {
     const store = new InMemoryStore();
     const controller = new UserCheckInController(store);
 
+    beforeEach(function() {
+        store.delete()
+    });
+
     describe('Post a user check in', () => {
 
         it('should return a 200 success response if the user check in data is as expected', async () => {
@@ -51,7 +55,8 @@ describe('UserCheckInController', () => {
                 },
                 read: function (): Promise<ResponseFromStore> {
                     throw new Error('some other error')
-                }
+                },
+                delete: function() {}
             };
             const mockBadController = new UserCheckInController(mockBadStore)
             const response = await mockBadController.create(mockUserCheckIn);
@@ -62,8 +67,33 @@ describe('UserCheckInController', () => {
 
     describe('Get user check in\'s', () => {
 
-        it('should return 200 and an array of check in\'s', () => {
-            
+        it('should return 200 and an array of check ins', async () => {
+            const mockUserCheckIn: UserCheckIn = {
+                mood: 4,
+                feeling: [Feeling.Stressed],
+                comment: "Feeling mildly stressed"
+            };
+
+            controller.create(mockUserCheckIn);
+            controller.create(mockUserCheckIn);
+
+            const { statusCode , json } = await controller.read();
+
+            const expectedResult = JSON.stringify([
+                {
+                    mood: 4,
+                    feeling: [ 'STRESSED' ],
+                    comment: 'Feeling mildly stressed'
+                },
+                {
+                    mood: 4,
+                    feeling: [ 'STRESSED' ],
+                    comment: 'Feeling mildly stressed'
+                }
+            ])
+
+            expect(statusCode).to.equal(200);
+            expect(JSON.stringify(json)).to.equal(expectedResult)
         });
 
     });
