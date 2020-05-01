@@ -1,7 +1,10 @@
-import React, { useState } from 'react'
+import React, {useState} from 'react'
 import Mood from "./mood";
 import Feeling from "./feeling";
 import Comment from "./comment";
+import Results from "./results";
+import {retrieveCheckIns, save} from "../apiRequests";
+import {Card, Wrapper} from "./styles";
 
 type Mood = 1 | 2 | 3 | 4 | 5 | 6 | 7
 
@@ -20,53 +23,48 @@ export type UserCheckIn = {
     comment?: String;
 }
 
-function Main() {
-
-    const [result, setResult] = useState({
-        response: 'Hello, not from the API',
-    });
-
-
-    const talkToApi = async() => {
-        console.log(checkIn)
-        try {
-            const res = await fetch('/checkIn', {
-                method: 'POST',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(checkIn)
-            }).then(res => res.json());
-            setResult({
-                response: res.message
-            })
-        } catch (err) {
-            alert(err);
-        }
-    };
-
+const Main = () => {
 
     const emptyCheckIn: UserCheckIn = { mood: 1, feeling: [], comment: ''};
 
     const [checkIn, setCheckIn] = useState({ ...emptyCheckIn });
+
+    const [allCheckIns, setAllCheckIns] = useState([{mood: '', feeling: ''}]);
+
+    const journey = 
+
+    const saveCheckIn = async () => {
+        await save(checkIn)
+            .then(async () => {
+                await retrieveCheckIns()
+                    .then(res => {setAllCheckIns(res.json)})
+            })
+    };
 
     const handleCheckInChange = (newCheckInState) => {
         setCheckIn({...checkIn, ...newCheckInState});
     };
 
     return (
-        <div>
-            Main
-            <Mood setMood={handleCheckInChange}/>
-            <div>{checkIn.mood}</div>
-            <Feeling setFeeling={handleCheckInChange}/>
-            <Comment setComment={handleCheckInChange}/>
-            <button onClick={talkToApi}>Submit</button>
-            <div>{result.response}</div>
-            <Results/>
-        </div>
+        <Wrapper>
+            <h1>STATE OF MIND</h1>
+            <Card>
+                <Mood setMood={handleCheckInChange}/>
+                <div>{checkIn.mood}</div>
+                <button>next</button>
+            </Card>
+            <Card>
+                <Feeling setFeeling={handleCheckInChange}/>
+            </Card>
+            <Card>
+                <Comment setComment={handleCheckInChange}/>
+                <button onClick={saveCheckIn}>Submit</button>
+            </Card>
+            <Card>
+                <Results checkIns={allCheckIns}/>
+            </Card>
+        </Wrapper>
     );
-}
+};
 
 export default Main;

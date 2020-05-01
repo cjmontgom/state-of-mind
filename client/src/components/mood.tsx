@@ -14,7 +14,6 @@ const Mood = ({setMood}) => {
         <div>
             Mood
             <Slider min={1} max={7} step={1} onChange={handleMoodChange}/>
-            <button>next</button>
         </div>
     );
 };

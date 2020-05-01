@@ -8,22 +8,20 @@ const Feeling = ({setFeeling}) => {
 
     const handleCheckBoxChange = (e) => {
         const feeling = e.target.value;
-        const checked = e.target.checked
+        const checked = e.target.checked;
         setSelectedFeelings({...selectedFeelings, [feeling] : checked });
-        console.log(selectedFeelings)
     };
 
     const handleFeelingChange = (e) => {
         const checkedFeelings =
             Object.keys(selectedFeelings)
-                .filter(val => selectedFeelings[val])
-        console.log(checkedFeelings)
+                .filter(val => selectedFeelings[val]);
         setFeeling({feeling : checkedFeelings});
     };
 
-    const feelings = [...Object.values(FeelingType)];
+    const feelingsList = [...Object.values(FeelingType)];
 
-    const feelingInput = feelings.map((feeling, idx) => {
+    const feelingInput = feelingsList.map((feeling, idx) => {
         return (
             <div key={`feelingInput-${idx}`}>
                 <input

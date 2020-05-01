@@ -9,7 +9,6 @@ const Comment = ({setComment}) => {
     return (
         <div>
             <input type="textbox" onChange={handleCommentChange}/>
-            <button>submit and see previous submissions</button>
         </div>
     );
 };
