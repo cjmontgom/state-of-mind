@@ -31,8 +31,6 @@ const Main = () => {
 
     const [allCheckIns, setAllCheckIns] = useState([{mood: '', feeling: ''}]);
 
-    const journey = 
-
     const saveCheckIn = async () => {
         await save(checkIn)
             .then(async () => {
