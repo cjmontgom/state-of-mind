@@ -11,6 +11,7 @@ import {
     Route,
     Link
 } from "react-router-dom";
+import Home from "./home";
 
 type Mood = 1 | 2 | 3 | 4 | 5 | 6 | 7
 
@@ -54,6 +55,12 @@ const Main = () => {
             <Wrapper>
                 <h1>STATE OF MIND</h1>
                 <Switch>
+                    <Route path="/">
+                        <Card>
+                            <Home/>
+                            <button><Link to="/mood">Get started</Link></button>
+                        </Card>
+                    </Route>
                     <Route path="/mood">
                         <Card>
                             <Mood setMood={handleCheckInChange}/>
@@ -77,6 +84,7 @@ const Main = () => {
                     <Route path="/insights">
                         <Card>
                             <Insights checkIns={allCheckIns}/>
+                            <button><Link to="/">Back to Home</Link></button>
                         </Card>
                     </Route>
                 </Switch>

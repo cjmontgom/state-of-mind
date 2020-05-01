@@ -8,6 +8,7 @@ const Comment = ({setComment}) => {
 
     return (
         <div>
+            <h2>Comments</h2>
             <input type="textbox" onChange={handleCommentChange}/>
         </div>
     );
