@@ -37,8 +37,8 @@ const Main = () => {
     };
 
     return (
-        <Router>
-            <Wrapper>
+        <Wrapper>
+            <Router>
                 <h1>STATE OF MIND</h1>
                 <Switch>
                     <Route path="/mood">
@@ -74,8 +74,8 @@ const Main = () => {
                         </Card>
                     </Route>
                 </Switch>
-            </Wrapper>
-        </Router>
+            </Router>
+        </Wrapper>
     );
 };
 

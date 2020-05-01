@@ -1,10 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
+import Main from "./components/main";
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+      <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;400&display=swap" rel="stylesheet"/>
+    <Main/>
   </React.StrictMode>,
   document.getElementById('root')
 );
