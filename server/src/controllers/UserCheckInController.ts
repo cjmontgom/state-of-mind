@@ -58,7 +58,11 @@ export class UserCheckInController implements CrudController{
                     response = {
                         statusCode: 200,
                         statusMessage: res.responseText,
-                        json: res.allUserCheckIns
+                        json: {
+                            averageMood: res.averageMood,
+                            totalNumberOfCheckIns: res.totalNumberOfCheckIns,
+                            allUserCheckIns: res.allUserCheckIns
+                        }
                     }
                 })
         } catch (e) {

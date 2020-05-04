@@ -80,7 +80,10 @@ describe('UserCheckInController', () => {
 
             const { statusCode , json } = await controller.read();
 
-            const expectedResult = JSON.stringify([
+            const expectedResult = JSON.stringify({
+                averageMood: 4,
+                totalNumberOfCheckIns: 2,
+                allUserCheckIns: [
                 {
                     mood: 4,
                     feeling: [Feelings.Stressed],
@@ -91,7 +94,7 @@ describe('UserCheckInController', () => {
                     feeling: [Feelings.Stressed],
                     comment: 'Feeling mildly stressed'
                 }
-            ]);
+            ]});
 
             expect(statusCode).to.equal(200);
             expect(JSON.stringify(json)).to.equal(expectedResult)

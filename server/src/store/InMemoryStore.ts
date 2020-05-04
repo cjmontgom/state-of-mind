@@ -1,8 +1,10 @@
-import {UserCheckIn} from "../shared/types";
+import {Mood, UserCheckIn} from "../shared/types";
 
 export type ResponseFromStore = {
     responseText: string;
     allUserCheckIns?: UserCheckIn[];
+    averageMood?: Mood;
+    totalNumberOfCheckIns?: number;
     errorMessage?: string;
 }
 
@@ -30,13 +32,21 @@ export class InMemoryStore implements Store {
     };
 
     read = async (): Promise<ResponseFromStore> => {
+        this.calculateAverageMood(this.userCheckIns)
         return {
             responseText: 'Successfully fetched check ins.',
-            allUserCheckIns: this.userCheckIns
+            allUserCheckIns: this.userCheckIns,
+            averageMood: this.calculateAverageMood(this.userCheckIns),
+            totalNumberOfCheckIns: this.userCheckIns.length
         };
     };
 
     delete = async () => {
         this.userCheckIns = []
+    };
+
+    calculateAverageMood = (userCheckIns: UserCheckIn[]): Mood => {
+        const reducer = (accumulator: number, currentCheckIn: UserCheckIn): number => accumulator + currentCheckIn.mood;
+        return <Mood>(userCheckIns.reduce(reducer, 0) / userCheckIns.length);
     }
 }
