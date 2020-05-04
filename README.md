@@ -1,7 +1,7 @@
 # State Of Mind
-A web app to check in with how you are feeling
 
-A React front end served by a simple Express server.
+A web app to check in with how you are feeling.
+A React front end served by an Express server.
 
 ### Technologies used
 
@@ -9,7 +9,7 @@ A React front end served by a simple Express server.
 - Typescript
 - Express
 - Mocha & Chai (for testing the back end)
-- Styled components (for the absolutely excellent styling)
+- Styled components (for the absolutely flawless UI styling)
 
 
 #### Quickstart
@@ -43,11 +43,11 @@ npm build
 
 #### To-do 
  - add SQL store
- - add dateTime, amount of check ins, and average mood to insights
  - add user ID
+ - finish UI with better instructions during journey and better looking insights page
  - add theme file for styling 
  - add testing for the front end state?
  - model out the user and have more properties like email and name
  - have a sign up and sign in
- - make it production ready by pointing the server to bundled front end when not in dev mode
+ - make it production ready by pointing the server to bundled front end when not in dev mode etc
 
