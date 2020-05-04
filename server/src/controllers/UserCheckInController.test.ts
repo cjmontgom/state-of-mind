@@ -1,14 +1,9 @@
 import {UserCheckInController} from './UserCheckInController';
-import {Feeling, InMemoryStore, ResponseFromStore, UserCheckIn} from "../store/InMemoryStore";
+import {InMemoryStore, ResponseFromStore} from "../store/InMemoryStore";
 import {expect} from 'chai';
 import 'mocha';
+import {Feelings, UserCheckIn} from "../shared/types";
 
-// mock response for get
-// Response = {
-//     json: {checkIns: [usercheckins]},
-//     statusCode: 200,
-//     statusMessage: res.responseText
-// }
 
 describe('UserCheckInController', () => {
 
@@ -24,10 +19,12 @@ describe('UserCheckInController', () => {
         it('should return a 200 success response if the user check in data is as expected', async () => {
             const mockUserCheckIn: UserCheckIn = {
                 mood: 5,
-                feeling: [Feeling.Content],
+                feeling: [Feelings.Content],
                 comment: "Feeling pretty good"
             };
+
             const response = await controller.create(mockUserCheckIn);
+
             expect(response.statusCode).to.equal(200);
             expect(response.statusMessage).to.equal("Successfully stored check in.");
         });
@@ -38,7 +35,9 @@ describe('UserCheckInController', () => {
                 feeling: [],
                 comment: "Feeling pretty good"
             };
+
             const response = await controller.create(mockIncorrectUserCheckIn);
+
             expect(response.statusCode).to.equal(401);
             expect(response.statusMessage).to.equal("The data was unexpected. The check in was not stored.");
         });
@@ -46,7 +45,7 @@ describe('UserCheckInController', () => {
         it('should return a 500 error if something unexpected happens', async () => {
             const mockUserCheckIn: UserCheckIn = {
                 mood: 5,
-                feeling: [Feeling.Content],
+                feeling: [Feelings.Content],
                 comment: "Feeling pretty good"
             };
             const mockBadStore = {
@@ -58,8 +57,10 @@ describe('UserCheckInController', () => {
                 },
                 delete: function() {}
             };
-            const mockBadController = new UserCheckInController(mockBadStore)
+            const mockBadController = new UserCheckInController(mockBadStore);
+
             const response = await mockBadController.create(mockUserCheckIn);
+
             expect(response.statusCode).to.equal(500);
             expect(response.statusMessage).to.equal("Unexpected error occurred");
         })
@@ -70,7 +71,7 @@ describe('UserCheckInController', () => {
         it('should return 200 and an array of check ins', async () => {
             const mockUserCheckIn: UserCheckIn = {
                 mood: 4,
-                feeling: [Feeling.Stressed],
+                feeling: [Feelings.Stressed],
                 comment: "Feeling mildly stressed"
             };
 
@@ -82,19 +83,37 @@ describe('UserCheckInController', () => {
             const expectedResult = JSON.stringify([
                 {
                     mood: 4,
-                    feeling: [ 'STRESSED' ],
+                    feeling: [Feelings.Stressed],
                     comment: 'Feeling mildly stressed'
                 },
                 {
                     mood: 4,
-                    feeling: [ 'STRESSED' ],
+                    feeling: [Feelings.Stressed],
                     comment: 'Feeling mildly stressed'
                 }
-            ])
+            ]);
 
             expect(statusCode).to.equal(200);
             expect(JSON.stringify(json)).to.equal(expectedResult)
         });
+
+        it('should return a 500 error if something unexpected happens', async () => {
+            const mockBadStore = {
+                create: function (): Promise<ResponseFromStore> {
+                    throw new Error('some error')
+                },
+                read: function (): Promise<ResponseFromStore> {
+                    throw new Error('some other error')
+                },
+                delete: function() {}
+            };
+            const mockBadController = new UserCheckInController(mockBadStore);
+
+            const response = await mockBadController.read();
+
+            expect(response.statusCode).to.equal(500);
+            expect(response.statusMessage).to.equal("Unexpected error occurred");
+        })
 
     });
 

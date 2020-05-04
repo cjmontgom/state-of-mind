@@ -1,4 +1,4 @@
-import express, {Express, Request, Response} from "express";
+import express, {Express} from "express";
 import * as bodyParser from 'body-parser';
 import UserCheckInRouter from "./routes/UserCheckInRouter";
 
@@ -23,9 +23,6 @@ export class Server implements IServer {
   }
 
   private loadRoutes(): void {
-    this.express.use('/api', (req: Request, res: Response) => {
-      res.json({message: 'Hello from the other siiiiide'});
-    });
     this.express.use('/checkIn', UserCheckInRouter);
   }
 }

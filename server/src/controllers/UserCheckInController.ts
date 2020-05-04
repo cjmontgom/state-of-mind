@@ -1,5 +1,6 @@
 import {Response} from 'express';
-import {Feeling, ResponseFromStore, Store, UserCheckIn} from "../store/InMemoryStore";
+import {ResponseFromStore, Store} from "../store/InMemoryStore";
+import {Feelings, UserCheckIn} from "../shared/types";
 
 export interface CrudController {
     store: Store;
@@ -15,9 +16,7 @@ export class UserCheckInController implements CrudController{
     }
 
     private static userCheckInTypeGuard(toBeDetermined: any): toBeDetermined is UserCheckIn {
-        return Object.values(Feeling).includes(toBeDetermined.feeling[0])
-            //   TODO check all the feelings
-            //   something like ... return toBeDetermined.feeling.every( (val) => Object.values(Feeling).includes(val))
+        return toBeDetermined.feeling.every( (val: Feelings) => Object.values(Feelings).includes(val))
         ? toBeDetermined.mood > 0 && toBeDetermined.mood < 8
         : false
     }

@@ -1,19 +1,4 @@
-type Mood = 1 | 2 | 3 | 4 | 5 | 6 | 7
-
-export enum Feeling {
-    Stressed = "Stressed",
-    Depressed = "Depressed",
-    Optimistic = "Optimistic",
-    Bored = "Bored",
-    Happy = "Happy",
-    Content = "Content"
-}
-
-export type UserCheckIn = {
-    mood: Mood;
-    feeling: Feeling[];
-    comment?: String;
-}
+import {UserCheckIn} from "../shared/types";
 
 export type ResponseFromStore = {
     responseText: string;
