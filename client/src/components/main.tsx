@@ -21,14 +21,19 @@ const Main = () => {
     const emptyCheckIn: UserCheckIn = { mood: 1, feeling: [], comment: ''};
 
     const [checkIn, setCheckIn] = useState({ ...emptyCheckIn });
-
     const [allCheckIns, setAllCheckIns] = useState([{mood: '', feeling: []}]);
+    const [totalNumberOfCheckIns, setTotalNumberOfCheckIns] = useState(0);
+    const [averageMood, setAverageMood] = useState(1);
 
     const saveCheckIn = async () => {
         await save(checkIn)
             .then(async () => {
                 await retrieveCheckIns()
-                    .then(res => {setAllCheckIns(res.json)})
+                    .then(res => {
+                        setAllCheckIns(res.json.allUserCheckIns);
+                        setAverageMood(res.json.averageMood);
+                        setTotalNumberOfCheckIns(res.json.totalNumberOfCheckIns)
+                    })
             })
     };
 
@@ -63,7 +68,11 @@ const Main = () => {
                     </Route>
                     <Route path="/insights">
                         <Card>
-                            <Insights checkIns={allCheckIns}/>
+                            <Insights
+                                checkIns={allCheckIns}
+                                numberOfCheckIns={totalNumberOfCheckIns}
+                                averageMood={averageMood}
+                            />
                             <Button><StyledLink to="/">Back to Home</StyledLink></Button>
                         </Card>
                     </Route>

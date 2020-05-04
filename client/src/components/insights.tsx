@@ -1,7 +1,7 @@
 import React, {Fragment, useEffect} from 'react';
 import {Section, SubHeader, Table} from "../styles/styles";
 
-const Insights = ({checkIns}) => {
+const Insights = ({checkIns, numberOfCheckIns, averageMood}) => {
 
     useEffect(() => {}, [checkIns])
 
@@ -25,7 +25,9 @@ const Insights = ({checkIns}) => {
         <Section>
             <SubHeader>Insights</SubHeader>
             <div>average mood</div>
+            <div>{averageMood}</div>
             <div>number of check ins</div>
+            <div>{numberOfCheckIns}</div>
             <Table>
                 <thead>
                     <tr>
